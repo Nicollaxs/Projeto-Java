@@ -40,8 +40,7 @@ public class Aluno {
 	
 	@Override
 	public String toString() {
-		return "{ nome: " + nome + ", idade: " + idade + "inscricoes: " + inscricoes + "}";
-		
+		return "Nome: " + nome + " , idade: " + idade + " , inscricoes: "+ inscricoes;
 	}
 
 }

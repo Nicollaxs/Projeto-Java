@@ -1,11 +1,18 @@
 package pacote;
 
+import java.util.ArrayList;
+
 public class Materia {
 	String nome;
 	String topico;
-	private Questao[] questoes = new Questao[10];
+	private ArrayList<Questao>questoes;
 
-//gets e sets
+	@Override  
+	public String toString() { 
+		return " Nome: " + nome + ", Topico: " + topico + ", Questoes: " +  questoes;
+	}
+
+	//gets e sets
 	public String getNome() {
 		return nome;
 	}
@@ -22,16 +29,12 @@ public class Materia {
 		this.topico = topico;
 	}
 
-	public Questao[] getQuestoes() {
+	public ArrayList<Questao> getQuestoes() {
 		return questoes;
 	}
 
-	public void setQuestoes(Questao[] questoes) {
+	public void setQuestoes(ArrayList<Questao> questoes) {
 		this.questoes = questoes;
-	}
-	@Override  
-	public String toString() { 
-		return " Nome: " + nome + ", Topico: " + topico + ", Questoes: " +  questoes;
 	}
 
 }

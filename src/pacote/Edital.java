@@ -77,11 +77,12 @@ public class Edital {
 	public void setAberto(boolean aberto) {
 		this.aberto = aberto;
 	}
-	
+
 	@Override
-	public String toString() { 
-		return "Nome: " + nome + ", DataInicio: " + dataInicio + ", DataTermino: " + dataTermino + ", Local: " + local + ", Salario: " + salario + ", QtdVagas: " + qtdVagas + ", Aberto: " + aberto;
-		
+	public String toString() {
+		return "Nome: " + nome + ", DataInicio: " + dataInicio + ", DataTermino: " + dataTermino + ", Local: " + local
+				+ ", Salario: " + salario + ", QtdVagas: " + qtdVagas + ", Aberto: " + aberto;
+
 	}
 
 }
