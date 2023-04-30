@@ -10,7 +10,8 @@ import modelo.Prova;
 public class Principal {
 
 	public static void main(String[] args) {
-
+		
+		//atributos são apenas testes
 		Aluno aluno = new Aluno("Joao", 20, "PF");
 		System.out.println(aluno.toString());
 
