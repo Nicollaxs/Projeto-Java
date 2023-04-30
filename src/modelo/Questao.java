@@ -1,7 +1,6 @@
-package pacote;
+package modelo;
 
-public class Questao {
-
+public abstract class Questao {
 	private String tipo;
 	private String enunciado;
 	private String alternativa;
@@ -43,10 +42,10 @@ public class Questao {
 		System.out.println("Enunciado : " + getEnunciado());
 		System.out.println("Alternativa : " + getAlternativa());
 	}
-	
+
 	@Override
-	public String toString() { 
-		return "Tipo: " + tipo + ", Enunciado: " + enunciado + "Alternativa: " + alternativa; 
+	public String toString() {
+		return "Questao [tipo=" + tipo + ", enunciado=" + enunciado + ", alternativa=" + alternativa + "]";
 	}
 
 }

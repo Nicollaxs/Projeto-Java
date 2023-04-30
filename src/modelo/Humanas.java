@@ -1,4 +1,4 @@
-package pacote;
+package modelo;
 
 public class Humanas extends Questao {
 	// atributo da classe humanas
@@ -17,10 +17,10 @@ public class Humanas extends Questao {
 		super.imprime();
 		System.out.println("Resposta : " + respostaDiscursiva);
 	}
-	
-	@Override 
+
+	@Override
 	public String toString() {
-		return "RespostaDiscursiva: " + respostaDiscursiva;
-		
+		return "Humanas [respostaDiscursiva=" + respostaDiscursiva + "]";
 	}
+
 }

@@ -1,4 +1,4 @@
-package pacote;
+package modelo;
 
 public class Aluno {
 
@@ -37,10 +37,10 @@ public class Aluno {
 	public void setInscricoes(String inscricoes) {
 		this.inscricoes = inscricoes;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Nome: " + nome + " , idade: " + idade + " , inscricoes: "+ inscricoes;
+		return "Aluno [nome=" + nome + ", idade=" + idade + ", inscricoes=" + inscricoes + "]";
 	}
 
 }

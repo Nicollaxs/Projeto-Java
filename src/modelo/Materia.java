@@ -1,18 +1,20 @@
-package pacote;
+package modelo;
 
 import java.util.ArrayList;
 
 public class Materia {
 	String nome;
 	String topico;
-	private ArrayList<Questao>questoes;
+	private ArrayList<Questao> questoes;
 
-	@Override  
-	public String toString() { 
-		return " Nome: " + nome + ", Topico: " + topico + ", Questoes: " +  questoes;
+	
+	public Materia(String nome, String topico) {
+		super();
+		this.nome = nome;
+		this.topico = topico;
 	}
 
-	//gets e sets
+	// gets e sets
 	public String getNome() {
 		return nome;
 	}
@@ -37,4 +39,8 @@ public class Materia {
 		this.questoes = questoes;
 	}
 
+	@Override
+	public String toString() {
+		return "Materia [nome=" + nome + ", topico=" + topico + "]";
+	}
 }

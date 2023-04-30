@@ -1,4 +1,4 @@
-package pacote;
+package modelo;
 
 public class Edital {
 	String nome;
@@ -80,9 +80,8 @@ public class Edital {
 
 	@Override
 	public String toString() {
-		return "Nome: " + nome + ", DataInicio: " + dataInicio + ", DataTermino: " + dataTermino + ", Local: " + local
-				+ ", Salario: " + salario + ", QtdVagas: " + qtdVagas + ", Aberto: " + aberto;
-
+		return "Edital [nome=" + nome + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", local="
+				+ local + ", salario=" + salario + ", qtdVagas=" + qtdVagas + ", aberto=" + aberto + "]";
 	}
 
 }

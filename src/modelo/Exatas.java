@@ -1,4 +1,4 @@
-package pacote;
+package modelo;
 
 public class Exatas extends Questao {
 	// atributo da classe exatas
@@ -26,9 +26,11 @@ public class Exatas extends Questao {
 		super.imprime();
 		System.out.println("Resposta : " + respostaNumerica);
 	}
-	
+
 	@Override
-	public String toString() { 
-		return "RespostaNumerica: " + respostaNumerica; 
+	public String toString() {
+		return "Exatas [respostaNumerica=" + respostaNumerica + "]";
 	}
+
+
 }
