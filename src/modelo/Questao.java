@@ -2,13 +2,15 @@ package modelo;
 
 public abstract class Questao {
 	private String tipo;
-	private String enunciado;
+	protected String enunciado;
 	private String alternativa;
+	private String materia;
 
-	public Questao(String tipo, String enunciado, String alternativa) {
+	public Questao(String tipo, String enunciado, String alternativa, String materia) {
 		this.tipo = tipo;
 		this.enunciado = enunciado;
 		this.alternativa = alternativa;
+		this.setMateria(materia);
 	}
 
 //gets e sets
@@ -35,17 +37,19 @@ public abstract class Questao {
 	public void setAlternativa(String alternativa) {
 		this.alternativa = alternativa;
 	}
-
-//metodos
-	public void imprime() {
-		System.out.println("Tipo : " + getTipo());
-		System.out.println("Enunciado : " + getEnunciado());
-		System.out.println("Alternativa : " + getAlternativa());
+	public String getMateria() {
+		return materia;
 	}
+
+	public void setMateria(String materia) {
+		this.materia = materia;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Questao [tipo=" + tipo + ", enunciado=" + enunciado + ", alternativa=" + alternativa + "]";
 	}
+
 
 }

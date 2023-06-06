@@ -5,22 +5,23 @@ public class Humanas extends Questao {
 	String respostaDiscursiva;
 
 	// herança
-	public Humanas(String tipo, String enunciado, String alternativa, String respostaDiscursiva) {
 
-		super(tipo, enunciado, alternativa);
+	public Humanas(String tipo, String enunciado, String alternativa, String materia, String respostaDiscursiva) {
+		super(tipo, enunciado, alternativa, materia);
 		this.respostaDiscursiva = respostaDiscursiva;
-
 	}
 
-	public void imprime() {
-		// herança de metodo
-		super.imprime();
-		System.out.println("Resposta : " + respostaDiscursiva);
+	public String getRespostaDiscursiva() {
+		return respostaDiscursiva;
+	}
+
+	public void setRespostaDiscursiva(String respostaDiscursiva) {
+		this.respostaDiscursiva = respostaDiscursiva;
 	}
 
 	@Override
 	public String toString() {
-		return "Humanas [respostaDiscursiva=" + respostaDiscursiva + "]";
+		return "Humanas [Enunciado="+ enunciado +"][respostaDiscursiva=" + respostaDiscursiva + "]";
 	}
 
 }

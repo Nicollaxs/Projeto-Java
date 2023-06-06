@@ -4,15 +4,11 @@ public class Exatas extends Questao {
 	// atributo da classe exatas
 	int respostaNumerica;
 
-	// herança
-	public Exatas(String tipo, String enunciado, String alternativa, int respostaNumerica) {
-
-		super(tipo, enunciado, alternativa);
+	public Exatas(String tipo, String enunciado, String alternativa, String materia, int respostaNumerica) {
+		super(tipo, enunciado, alternativa, materia);
 		this.respostaNumerica = respostaNumerica;
-
 	}
 
-	// gets e sets
 	public int getRespostaNumerica() {
 		return respostaNumerica;
 	}
@@ -21,16 +17,9 @@ public class Exatas extends Questao {
 		this.respostaNumerica = respostaNumerica;
 	}
 
-	// metodo da classe
-	public void imprime() {
-		super.imprime();
-		System.out.println("Resposta : " + respostaNumerica);
-	}
-
 	@Override
 	public String toString() {
-		return "Exatas [respostaNumerica=" + respostaNumerica + "]";
+		return "Exatas [Enunciado =" + enunciado + "][respostaNumerica=" + respostaNumerica + "]";
 	}
-
 
 }

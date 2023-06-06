@@ -8,12 +8,12 @@ public class Prova {
 	private String horarioTermino;
 	private ArrayList<Questao> questoes;
 
-	public Prova(String horarioInicio, String horarioTermino) {
 
-		this.questoes = new ArrayList<Questao>();
+	public Prova(String horarioInicio, String horarioTermino, ArrayList<Questao> questoes) {
+		super();
 		this.horarioInicio = horarioInicio;
 		this.horarioTermino = horarioTermino;
-
+		this.questoes = questoes;
 	}
 
 	// gets e sets
@@ -42,16 +42,10 @@ public class Prova {
 		this.questoes = questoes;
 	}
 
-	// Metodo da classe
-	public void imprime() {
-		System.out.println();
-		System.out.println(getHorarioInicio());
-		System.out.println(getHorarioTermino());
-	}
-
 	@Override
 	public String toString() {
-		return "Prova [horarioInicio=" + horarioInicio + ", horarioTermino=" + horarioTermino + "]";
+		return "Prova [horarioInicio=" + horarioInicio + ", horarioTermino=" + horarioTermino + ", questoes=" + questoes
+				+ "]";
 	}
 
 }
