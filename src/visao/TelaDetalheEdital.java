@@ -1,10 +1,14 @@
 package visao;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.*;
 import controle.ControleEditais;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import visao.TelaEdital;
+import modelo.Edital;
 
 public class TelaDetalheEdital extends JFrame implements ActionListener {
     JLabel nomeJLabel = new JLabel("Nome :");
@@ -23,7 +27,8 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
     JButton Salvar = new JButton("Salvar");
     JButton Deletar = new JButton("Deletar");
-    int codEdital = 0;
+    private Integer codEdital=0;
+    //String nome = null;
 
     public TelaDetalheEdital() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -74,11 +79,22 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
     }
 
-    public void BuscarEditais(String nome, Date data, Date data2, String local, String salario,
+    private void limparTela(){
+            caixaNome.setText("");
+        caixadataInicio.setText("");
+        caixadataTermino.setText("");
+        caixalocal.setText("");
+        caixaqtdVagas.setText("0");
+        caixasalario.setText("0");
+    }
+
+    public void BuscarEditais(int codEdital, String nome, String dataInicio, String dataTermino, String local,
+            String salario,
             String qtdvagas) {
+                this.codEdital=codEdital;
         this.caixaNome.setText(nome);
-        this.caixadataInicio.setText(data.toString());
-        this.caixadataTermino.setText(data2.toString());
+        this.caixadataInicio.setText(dataInicio);
+        this.caixadataTermino.setText(dataTermino);
         this.caixalocal.setText(local);
         this.caixasalario.setText(salario);
         this.caixaqtdVagas.setText(qtdvagas);
@@ -96,14 +112,14 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
             salvarbutton(e);
         }
         if (src == Deletar) {
-
+            deletarbutton(e);
         }
 
     }
 
-    public void salvarbutton(ActionEvent evt) {
+public void salvarbutton(ActionEvent evt) {
 
-        boolean sucesso = true;
+        boolean sucesso;
         try {
             ControleEditais controleEditais = new ControleEditais();
 
@@ -112,12 +128,12 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
                         caixadataTermino.getText(), caixalocal.getText(), caixasalario.getText(),
                         caixaqtdVagas.getText());
             } else {
-                sucesso = controleEditais.alterarEdital(codEdital, caixaNome.getText(), caixadataInicio.getText(),
+                sucesso = controleEditais.mudarEdital(this.codEdital, caixaNome.getText(), caixadataInicio.getText(),
                         caixadataTermino.getText(), caixalocal.getText(), caixasalario.getText(),
                         caixaqtdVagas.getText());
             }
 
-            if (sucesso == true) {
+            if (sucesso) {
                 JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso");
                 this.limparTelaCadastroEdital();
             } else {
@@ -128,13 +144,26 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         }
     }
 
+    public void deletarbutton(ActionEvent evt) {
+
+        boolean sucesso;
+        
+            ControleEditais controleEditais = new ControleEditais();
+
+            try {
+                sucesso = controleEditais.deletarEdital(this.codEdital);
+                if(sucesso){
+                JOptionPane.showMessageDialog(null, "O edital foi apagado com sucesso");
+                this.limparTela();
+            } else 
+                JOptionPane.showMessageDialog(null, "O edital não foi apagado. Por favor, selecione um edital !");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+    }
+
     private void limparTelaCadastroEdital() {
-        caixaNome.setText("");
-        caixadataInicio.setText("");
-        caixadataTermino.setText("");
-        caixalocal.setText("");
-        caixaqtdVagas.setText("0");
-        caixasalario.setText("0");
+this.limparTela();
     }
 
 }

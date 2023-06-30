@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import controle.ControleEditais;
 import modelo.Edital;
+import visao.TelaDetalheEdital;
 
 public class TelaEdital extends JFrame implements ActionListener {
 
@@ -43,6 +43,7 @@ public class TelaEdital extends JFrame implements ActionListener {
         buscar.addActionListener(this::buscar);
         add(buscar);
 
+        tableModel.addColumn("Codigo");
         tableModel.addColumn("Nome");
         tableModel.addColumn("DataInicio");
         tableModel.addColumn("DataTermino");
@@ -76,7 +77,7 @@ public class TelaEdital extends JFrame implements ActionListener {
             ArrayList<Edital> editais = controleEditais.listarEditais(nome);
             editais.forEach((Edital edital) -> {
                 tableModel.addRow(new Object[] {
-                        // edital.getCodEdital(),
+                        edital.getCodEdital(),
                         edital.getNome(),
                         edital.getDataInicio(),
                         edital.getDataTermino(),
@@ -99,14 +100,15 @@ public class TelaEdital extends JFrame implements ActionListener {
     private void tableModelMouseclicked(java.awt.event.MouseEvent evt) {
         if (evt.getClickCount() == 2) {
             int selectedRow = tabela.getSelectedRow();
-            String nome = (String) tableModel.getValueAt(selectedRow, 0);
-            Date dataInicio = (Date) tableModel.getValueAt(selectedRow, 1);
-            Date dataTermino = (Date) tableModel.getValueAt(selectedRow, 2);
-            String local = (String) tableModel.getValueAt(selectedRow, 3);
-            String salario = (String) tableModel.getValueAt(selectedRow, 4);
-            String qtdVagas = (String) tableModel.getValueAt(selectedRow, 5);
+            Integer codEdital = (Integer) tableModel.getValueAt(selectedRow, 0);
+            String nome = (String) tableModel.getValueAt(selectedRow, 1);
+            String dataInicio = (String) tableModel.getValueAt(selectedRow, 2);
+            String dataTermino = (String) tableModel.getValueAt(selectedRow, 3);
+            String local = (String) tableModel.getValueAt(selectedRow, 4);
+            String salario = (String) tableModel.getValueAt(selectedRow, 5);
+            String qtdVagas = (String) tableModel.getValueAt(selectedRow, 6);
 
-            this.telaDetalheEdital.BuscarEditais(nome, dataInicio, dataTermino, local, salario, qtdVagas);
+            this.telaDetalheEdital.BuscarEditais(codEdital, nome, dataInicio, dataTermino, local, salario, qtdVagas);
 
             this.telaDetalheEdital.setVisible(true);
             this.dispose();

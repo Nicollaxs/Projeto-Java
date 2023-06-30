@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "TelaDetalheQuestao",
+            "request": "launch",
+            "mainClass": "visao.TelaDetalheQuestao",
+            "projectName": "EstudoParaConcurso_5593466d"
+        },
+        {
+            "type": "java",
+            "name": "TelaEdital",
+            "request": "launch",
+            "mainClass": "visao.TelaEdital",
+            "projectName": "EstudoParaConcurso_5593466d"
+        },
+        {
+            "type": "java",
+            "name": "TelaDetalheEdital",
+            "request": "launch",
+            "mainClass": "visao.TelaDetalheEdital",
+            "projectName": "EstudoParaConcurso_5593466d"
+        }
+    ]
+}

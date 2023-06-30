@@ -1,10 +1,12 @@
 package visao;
 
-import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
-import modelo.Edital;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -114,7 +116,7 @@ public class TelaDetalheQuestao implements ActionListener, ListSelectionListener
                         JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente.");
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro: " + ex);
+                    Logger.getLogger(TelaDetalheEdital.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         });
@@ -138,8 +140,3 @@ public class TelaDetalheQuestao implements ActionListener, ListSelectionListener
     }
 
 }
-/*
- * enunciado;
- * private String alternativa;
- * private String materia;
- */

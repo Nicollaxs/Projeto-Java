@@ -1,6 +1,5 @@
 package modelo;
 
-import java.util.Date;
 import java.util.ArrayList;
 
 import dao.EditalDAO;
@@ -8,33 +7,27 @@ import dao.ExceptionDAO;
 
 public class Edital {
 	String nome;
-	Date dataInicio;
-	Date dataTermino;
+	String dataInicio;
+	String dataTermino;
 	String localidade;
 	String salario;
 	String qtdVagas;
-	private int codEdital;
 
-	public int getCodEdital() {
-		return codEdital;
-	}// boolean aberto;
+	int codEdital;
 
 	public Edital() {
 
 	}
 
-	public Edital(String nome, Date data, Date data2, String local, String salario, String qtdVagas) {
+	public Edital(String nome, String dataInicio, String dataTermino, String local, String salario, String qtdVagas) {
 		this.nome = nome;
-		this.dataInicio = data;
-		this.dataTermino = data2;
+		this.dataInicio = dataInicio;
+		this.dataTermino = dataTermino;
 		this.localidade = local;
 		this.salario = salario;
 		this.qtdVagas = qtdVagas;
 	}
 
-	public void CadastrarEdital(Edital edital) throws ExceptionDAO {
-		new EditalDAO().CadastrarEdital(edital);
-	}
 
 	public String getNome() {
 		return nome;
@@ -44,20 +37,20 @@ public class Edital {
 		this.nome = nome;
 	}
 
-	public Date getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataTermino() {
+	public String getDataTermino() {
 		return dataTermino;
 	}
 
-	public void setDataTermino(Date string) {
-		this.dataTermino = string;
+	public void setDataTermino(String dataTermino) {
+		this.dataTermino = dataTermino;
 	}
 
 	public String getLocalidade() {
@@ -82,16 +75,32 @@ public class Edital {
 
 	public void setQtdVagas(String qtdVagas) {
 		this.qtdVagas = qtdVagas;
+
 	}
 
-	@Override
-	public String toString() {
-		return "Edital [nome=" + nome + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", local="
-				+ localidade + ", salario=" + salario + ", qtdVagas=" + qtdVagas + ", aberto=" + "]";
+
+	public int getCodEdital() {
+		return codEdital;
 	}
 
-	public ArrayList<Edital> listarEditais(String nome) throws ExceptionDAO {
+	public void setCodEdital(int codEdital) {
+		this.codEdital = codEdital;
+	}
+		public ArrayList<Edital> listarEditais(String nome) throws ExceptionDAO {
 		return new EditalDAO().listarEditais(nome);
 
 	}
+
+	public void mudarEdital(Edital edital) throws ExceptionDAO {
+		new EditalDAO().mudarEdital(edital);
+	}
+
+	public void deletarEdital(Edital edital) throws ExceptionDAO {
+		new EditalDAO().deletarEdital(edital);
+	}
+
+		public void CadastrarEdital(Edital edital) throws ExceptionDAO {
+		new EditalDAO().CadastrarEdital(edital);
+	}
+
 }
