@@ -1,14 +1,11 @@
 package visao;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.*;
 import controle.ControleEditais;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import visao.TelaEdital;
-import modelo.Edital;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class TelaDetalheEdital extends JFrame implements ActionListener {
     JLabel nomeJLabel = new JLabel("Nome :");
@@ -27,8 +24,10 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
     JButton Salvar = new JButton("Salvar");
     JButton Deletar = new JButton("Deletar");
-    private Integer codEdital=0;
-    //String nome = null;
+    JButton voltar = new JButton("voltar");
+    private Integer codEdital = 0;
+    private TelaEdital telaEdital;
+    // String nome = null;
 
     public TelaDetalheEdital() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -75,12 +74,16 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         Deletar.addActionListener(this);
         add(Deletar);
 
+        voltar.setBounds(100, 20, 100, 30);
+        voltar.addActionListener(this);
+        add(voltar);
+
         setVisible(true);
 
     }
 
-    private void limparTela(){
-            caixaNome.setText("");
+    private void limparTela() {
+        caixaNome.setText("");
         caixadataInicio.setText("");
         caixadataTermino.setText("");
         caixalocal.setText("");
@@ -91,7 +94,7 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
     public void BuscarEditais(int codEdital, String nome, String dataInicio, String dataTermino, String local,
             String salario,
             String qtdvagas) {
-                this.codEdital=codEdital;
+        this.codEdital = codEdital;
         this.caixaNome.setText(nome);
         this.caixadataInicio.setText(dataInicio);
         this.caixadataTermino.setText(dataTermino);
@@ -117,7 +120,7 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
     }
 
-public void salvarbutton(ActionEvent evt) {
+    public void salvarbutton(ActionEvent evt) {
 
         boolean sucesso;
         try {
@@ -147,15 +150,15 @@ public void salvarbutton(ActionEvent evt) {
     public void deletarbutton(ActionEvent evt) {
 
         boolean sucesso;
-        
-            ControleEditais controleEditais = new ControleEditais();
 
-            try {
-                sucesso = controleEditais.deletarEdital(this.codEdital);
-                if(sucesso){
+        ControleEditais controleEditais = new ControleEditais();
+
+        try {
+            sucesso = controleEditais.deletarEdital(this.codEdital);
+            if (sucesso) {
                 JOptionPane.showMessageDialog(null, "O edital foi apagado com sucesso");
                 this.limparTela();
-            } else 
+            } else
                 JOptionPane.showMessageDialog(null, "O edital não foi apagado. Por favor, selecione um edital !");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
@@ -163,7 +166,7 @@ public void salvarbutton(ActionEvent evt) {
     }
 
     private void limparTelaCadastroEdital() {
-this.limparTela();
+        this.limparTela();
     }
 
 }

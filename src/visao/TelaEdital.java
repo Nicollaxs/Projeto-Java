@@ -11,15 +11,16 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import controle.ControleEditais;
 import modelo.Edital;
-import visao.TelaDetalheEdital;
 
 public class TelaEdital extends JFrame implements ActionListener {
 
     private JButton buscar = new JButton("buscar");
+    private JButton voltar = new JButton("voltar");
+
+    private JButton cadastrar = new JButton("cadastrar");
     private JTextField caixaBuscar = new JTextField();
     private JPanel painelTabela = new JPanel(new GridLayout());
     private JTable tabela;
-    TelaDetalheEdital telaDetalheEdital = new TelaDetalheEdital();
 
     private DefaultTableModel tableModel = new DefaultTableModel() {
         @Override
@@ -28,7 +29,7 @@ public class TelaEdital extends JFrame implements ActionListener {
         }
     };
 
-    private TelaEdital() {
+    public TelaEdital() {
 
         setTitle("Consulta de Concurso");
         setBounds(320, 120, 960, 640);
@@ -38,6 +39,10 @@ public class TelaEdital extends JFrame implements ActionListener {
 
         caixaBuscar.setBounds(230, 40, 380, 30);
         add(caixaBuscar);
+
+        cadastrar.setBounds(760, 40, 150, 32);
+        cadastrar.addActionListener(this::cadastro);
+        add(cadastrar);
 
         buscar.setBounds(630, 40, 150, 32);
         buscar.addActionListener(this::buscar);
@@ -93,12 +98,23 @@ public class TelaEdital extends JFrame implements ActionListener {
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == cadastrar) {
+            cadastro(e);
+        }
+
+    }
+
     public static void main(String[] args) {
         TelaEdital tela = new TelaEdital();
+
     }
 
     private void tableModelMouseclicked(java.awt.event.MouseEvent evt) {
         if (evt.getClickCount() == 2) {
+            TelaDetalheEdital telaDetalheEdital = new TelaDetalheEdital();
             int selectedRow = tabela.getSelectedRow();
             Integer codEdital = (Integer) tableModel.getValueAt(selectedRow, 0);
             String nome = (String) tableModel.getValueAt(selectedRow, 1);
@@ -108,16 +124,21 @@ public class TelaEdital extends JFrame implements ActionListener {
             String salario = (String) tableModel.getValueAt(selectedRow, 5);
             String qtdVagas = (String) tableModel.getValueAt(selectedRow, 6);
 
-            this.telaDetalheEdital.BuscarEditais(codEdital, nome, dataInicio, dataTermino, local, salario, qtdVagas);
+            telaDetalheEdital.BuscarEditais(codEdital, nome, dataInicio, dataTermino, local, salario, qtdVagas);
 
-            this.telaDetalheEdital.setVisible(true);
+            telaDetalheEdital.setVisible(true);
             this.dispose();
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void cadastro(ActionEvent evt) {
 
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        TelaDetalheEdital telaDetalheEdital = new TelaDetalheEdital();
+
     }
+
+    public void voltarParaTelaEdital() {
+        TelaEdital telaEdital = new TelaEdital();
+    }
+
 }

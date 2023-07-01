@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TelaMenu",
+            "request": "launch",
+            "mainClass": "visao.TelaMenu",
+            "projectName": "EstudoParaConcurso_5593466d"
+        },
+        {
+            "type": "java",
+            "name": "TelaQuestao",
+            "request": "launch",
+            "mainClass": "visao.TelaQuestao",
+            "projectName": "EstudoParaConcurso_5593466d"
+        },
+        {
+            "type": "java",
             "name": "TelaDetalheQuestao",
             "request": "launch",
             "mainClass": "visao.TelaDetalheQuestao",

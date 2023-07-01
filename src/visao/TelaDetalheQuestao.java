@@ -1,125 +1,100 @@
 package visao;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import controle.ControleQuestao;
 
-public class TelaDetalheQuestao implements ActionListener, ListSelectionListener {
+public class TelaDetalheQuestao extends JFrame implements ActionListener {
 
-    JFrame janelaCadastro;
-    JLabel tipo, enunciado, alternativa, materia;
-    JButton salvar;
-    JButton deletar;
-    private JTextField caixaTipo;
-    private JTextField caixaEnunciado;
-    private JTextField caixaAlternativa;
+    JLabel tipo, enunciado, resposta, materia;
+    JButton salvarQ;
+    JButton deletarQ;
+    private JTextArea caixaEnunciado;
+    private JTextArea caixaResposta;
     private JTextField caixaMateria;
-    JComboBox exatasButton;
+    private JTextField caixatipo;
+
+    // private JComboBox<String> exatasButton;
+    private Integer codQuestao = 0;
 
     public TelaDetalheQuestao() {
-        QuestaoTela();
-    }
-
-    public void QuestaoTela() {
-
         // botoes
-        salvar = new JButton("Salvar");
-        deletar = new JButton("Deletar");
+        salvarQ = new JButton("Salvar");
+        deletarQ = new JButton("Deletar");
 
         //
         tipo = new JLabel("Tipo : ");
-        enunciado = new JLabel("Enunciado : ");
-        alternativa = new JLabel("Alternativa : ");
         materia = new JLabel("Materia : ");
-
-        janelaCadastro = new JFrame();
-
-        tipo.setBounds(20, 50, 100, 30);
-        enunciado.setBounds(20, 90, 100, 30);
-        alternativa.setBounds(20, 130, 100, 30);
-        materia.setBounds(20, 170, 100, 30);
+        enunciado = new JLabel("Enunciado : ");
+        resposta = new JLabel("Resposta : ");
+        tipo.setBounds(20, 30, 100, 30);
+        materia.setBounds(20, 70, 100, 30);
+        enunciado.setBounds(20, 120, 100, 30);
+        resposta.setBounds(20, 230, 100, 30);
 
         // botoes
-        salvar.setBounds(120, 350, 100, 30);
-        deletar.setBounds(250, 350, 100, 30);
+        salvarQ.setBounds(120, 350, 100, 30);
+        deletarQ.setBounds(250, 350, 100, 30);
+        salvarQ.addActionListener(this);
+        deletarQ.addActionListener(this);
 
-        janelaCadastro.setLayout(null);
+        setLayout(null);
 
-        janelaCadastro.add(salvar);
-        janelaCadastro.add(deletar);
+        add(salvarQ);
+        add(deletarQ);
 
-        janelaCadastro.add(tipo);
-        janelaCadastro.add(enunciado);
-        janelaCadastro.add(alternativa);
-        janelaCadastro.add(materia);
+        add(tipo);
+        add(enunciado);
+        add(resposta);
+        add(materia);
 
-        String[] resposta = { "exatas", "humanas" };
-
-        JComboBox comboBox = new JComboBox(resposta);
-
-        comboBox.setBounds(120, 50, 100, 30);
-        janelaCadastro.getContentPane().add(comboBox);
-        janelaCadastro.add(comboBox);
+        String[] resposta = { "Exatas", "Humanas" };
+        /*
+         * exatasButton = new JComboBox<>(resposta);
+         * exatasButton.setBounds(120, 30, 100, 20);
+         * getContentPane().add(exatasButton);
+         * add(exatasButton);
+         * salvarQ.addActionListener(this);
+         */
 
         // tipo
-
-        // enunciado
-
-        caixaEnunciado = new JTextField(20);
-        caixaEnunciado.setBounds(120, 90, 100, 30);
-        janelaCadastro.getContentPane().add(caixaEnunciado);
-        caixaEnunciado.setColumns(10);
-
-        // alternativa
-
-        caixaAlternativa = new JTextField(20);
-        caixaAlternativa.setBounds(120, 130, 100, 30);
-        janelaCadastro.getContentPane().add(caixaAlternativa);
-        caixaAlternativa.setColumns(10);
+        caixatipo = new JTextField(20);
+        caixatipo.setBounds(120, 30, 100, 30);
+        getContentPane().add(caixatipo);
+        caixatipo.setColumns(10);
 
         // materia
 
         caixaMateria = new JTextField(20);
-        caixaMateria.setBounds(120, 170, 100, 30);
-        janelaCadastro.getContentPane().add(caixaMateria);
+        caixaMateria.setBounds(120, 70, 100, 30);
+        getContentPane().add(caixaMateria);
         caixaMateria.setColumns(10);
 
-        salvar.addActionListener(this);
+        // enunciado
 
-        janelaCadastro.setSize(500, 450);
-        janelaCadastro.setVisible(true);
+        caixaEnunciado = new JTextArea(10, 10);
+        caixaEnunciado.setBounds(120, 120, 300, 100);
+        getContentPane().add(caixaEnunciado);
+        caixaEnunciado.setColumns(10);
+        caixaEnunciado.setLineWrap(true);
+        caixaEnunciado.setWrapStyleWord(true);
 
-        salvar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String valorTipo = caixaTipo.getText();
-                String valorEnunciado = caixaEnunciado.getText();
-                String valorAlternativa = caixaAlternativa.getText();
-                String valorMateria = caixaMateria.getText();
-                String valorResposta = comboBox.getSelectedItem().toString();
+        // Resposta
 
-                try {
-                    ControleQuestao controleQuestoes = new ControleQuestao();
-                    boolean sucesso = controleQuestoes.cadQuestao(valorTipo, valorEnunciado, valorAlternativa,
-                            valorMateria, valorResposta);
-                    if (sucesso) {
-                        JOptionPane.showMessageDialog(null, "O cadastro foi realizado.");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente.");
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(TelaDetalheEdital.class.getName()).log(Level.SEVERE, null, e);
-                }
-            }
-        });
+        caixaResposta = new JTextArea(10, 10);
+        caixaResposta.setBounds(120, 230, 300, 70);
+        getContentPane().add(caixaResposta);
+        caixaResposta.setColumns(10);
+        caixaResposta.setLineWrap(true);
+        caixaResposta.setWrapStyleWord(true);
+
+        // salvarQ.addActionListener(this);
+
+        setSize(600, 550);
+        setVisible(true);
 
     }
 
@@ -128,15 +103,88 @@ public class TelaDetalheQuestao implements ActionListener, ListSelectionListener
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'valueChanged'");
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == salvarQ) {
+            cadastrarbutton(e);
+
+        }
+        if (src == deletarQ) {
+            deletarbutton(e);
+
+        }
+
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    public void BuscarQuestao(int codQuestao, String tipo, String materia, String enunciado, String resposta) {
+        this.codQuestao = codQuestao;
+        this.caixatipo.setText(tipo);
+        this.caixaMateria.setText(materia);
+        this.caixaEnunciado.setText(enunciado);
+        this.caixaResposta.setText(resposta);
+
+    }
+
+    public void cadastrarbutton(ActionEvent evt) {
+        // String tipo = exatasButton.getSelectedItem().toString();
+
+        boolean sucesso;
+        try {
+            ControleQuestao controleQuestao = new ControleQuestao();
+            if (this.codQuestao == 0) {
+
+                if (caixatipo.getText().equals("Exatas")) {
+                    sucesso = controleQuestao.cadQuestaoExatas(caixatipo.getText(), caixaMateria.getText(),
+                            caixaEnunciado.getText(), caixaResposta.getText());
+                    JOptionPane.showMessageDialog(null, "Foi cadastrado uma questao de exatas !");
+
+                } else {
+                    sucesso = controleQuestao.cadQuestaoHumanas(caixatipo.getText(), caixaMateria.getText(),
+                            caixaEnunciado.getText(), caixaResposta.getText());
+                    JOptionPane.showMessageDialog(null, "Foi cadastrado uma questao de humanas !");
+                }
+            } else {
+                sucesso = controleQuestao.mudarQuestao(this.codQuestao, caixatipo.getText(), caixaMateria.getText(),
+                        caixaEnunciado.getText(), caixaResposta.getText());
+            }
+            if (sucesso == true) {
+                JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso !");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+
+        }
+
+    }
+
+    public void deletarbutton(ActionEvent evt) {
+
+        boolean sucesso;
+
+        ControleQuestao controleQuestao = new ControleQuestao();
+
+        try {
+            sucesso = controleQuestao.deletarQuestao(this.codQuestao);
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "O edital foi apagado com sucesso");
+                this.limparTela();
+            } else
+                JOptionPane.showMessageDialog(null,
+                        "O edital não foi apagado. Por favor, selecione um edital !");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+    }
+
+    private void limparTelaCadastroQuestao() {
+        this.limparTela();
+    }
+
+    private void limparTela() {
+        caixatipo.setText("");
+        caixaMateria.setText("");
+        caixaEnunciado.setText("");
+        caixaResposta.setText("");
     }
 
 }
