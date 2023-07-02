@@ -11,6 +11,53 @@ import controle.*;
 
 import modelo.Questao;
 
+/**
+ * Classe que representa a tela de consulta e cadastro de questoes para
+ * concursos.
+ * 
+ * <p>
+ * Essa classe extende a classe JFrame e implementa a interface ActionListener,
+ * sendo responsavel por exibir a tela onde o usuario pode consultar questoes
+ * cadastradas
+ * e cadastrar novas questoes para o banco de dados.
+ * 
+ * <p>
+ * A tela possui uma caixa de busca onde o usuario pode inserir o nome da
+ * materia para
+ * filtrar as questoes exibidas na tabela. Alem disso, a tela exibe uma tabela
+ * com as
+ * questoes cadastradas, exibindo informcoes como o codigo da questao, tipo,
+ * materia,
+ * enunciado e resposta.
+ * 
+ * <p>
+ * Os botoes "Buscar" e "Cadastrar" permitem realizar acoes na tela:
+ * - O botao "Buscar" aciona o metodo de busca, filtrando as questoes de acordo
+ * com a materia
+ * digitada na caixa de busca.
+ * - O botao "Cadastrar" aciona o metodo de cadastro, abrindo uma nova tela
+ * (TelaDetalheQuestao)
+ * para que o usuario possa cadastrar uma nova questao.
+ * 
+ * <p>
+ * Ao clicar duas vezes em uma questao na tabela, e aberta uma tela
+ * (TelaDetalheQuestao) com
+ * os detalhes da questao selecionada.
+ * 
+ * <p>
+ * A classe tambem possui um metodo main para executar a tela de consulta de
+ * questoes.
+ * 
+ * @see JFrame
+ * @see ActionListener
+ * @see TelaDetalheQuestao
+ * @see Questao
+ * 
+ * @version a
+ * @since a
+ * 
+ * @author Pc
+ */
 public class TelaQuestao extends JFrame implements ActionListener {
 
     private JButton buscarQuestao = new JButton("buscar");
@@ -18,7 +65,6 @@ public class TelaQuestao extends JFrame implements ActionListener {
     private JTextField caixaBuscarQuestao = new JTextField();
     private JPanel painelTabelaQuestao = new JPanel(new GridLayout());
     private JTable tabelaQuestao;
-
     private DefaultTableModel tableModelQuestao = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int linha, int coluna) {
@@ -26,12 +72,20 @@ public class TelaQuestao extends JFrame implements ActionListener {
         }
     };
 
+    /**
+     * Construtor da classe TelaQuestao.
+     * 
+     * <p>
+     * Cria uma nova instancia da tela de consulta e cadastro de questoes,
+     * configurando
+     * seus componentes, definindo seu tamanho, layout e visibilidade.
+     */
     public TelaQuestao() {
 
-        setTitle("Consulta de Concurso");
+        setTitle("Consulta de Questao");
         setBounds(320, 120, 960, 640);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setBackground(new Color(30, 30, 30));
+        getContentPane().setBackground(new Color(0, 0, 30));
         setLayout(null);
 
         caixaBuscarQuestao.setBounds(230, 40, 380, 30);
@@ -68,6 +122,18 @@ public class TelaQuestao extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Metodo para buscar questoes de acordo com a materia digitada.
+     * 
+     * <p>
+     * Esse metodo e chamado ao clicar no botao "Buscar". Ele recupera o texto
+     * digitado
+     * na caixa de busca e utiliza o objeto ControleQuestao para buscar as questoes
+     * relacionadas
+     * a materia informada. As questoes encontradas sao exibidas na tabela.
+     * 
+     * @param evt O evento de clique no botao "Buscar".
+     */
     public void buscar(ActionEvent evt) {
         String materia = caixaBuscarQuestao.getText();
         DefaultTableModel tableModel = (DefaultTableModel) tabelaQuestao.getModel();
@@ -92,19 +158,18 @@ public class TelaQuestao extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args) {
-        TelaQuestao tela = new TelaQuestao();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if (src == cadastrar) {
-            cadastro(e);
-
-        }
-    }
-
+    /**
+     * Método para tratar o evento de clique na tabela de questões.
+     * 
+     * <p>
+     * Esse metodo e chamado ao clicar duas vezes em uma questao na tabela. Ele
+     * obtem
+     * os dados da questao selecionada na tabela e abre uma nova tela
+     * (TelaDetalheQuestao)
+     * para exibir os detalhes dessa questao.
+     * 
+     * @param evt O evento de clique na tabela de questoes.
+     */
     private void tableModelMouseclicked(java.awt.event.MouseEvent evt) {
         // TelaDetalheQuestao telaDetalheQuestao = new TelaDetalheQuestao();
         if (evt.getClickCount() == 2) {
@@ -124,9 +189,30 @@ public class TelaQuestao extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Metodo de acao para o botao "Cadastrar".
+     * 
+     * <p>
+     * Esse metodo e chamado ao clicar no botao "Cadastrar". Ele cria uma nova
+     * instancia
+     * da tela de detalhes de questao (TelaDetalheQuestao), permitindo que o usuario
+     * possa
+     * cadastrar uma nova questao.
+     * 
+     * @param evt O evento de clique no botao "Cadastrar".
+     */
     public void cadastro(ActionEvent evt) {
 
         TelaDetalheQuestao telaDetalheQuestao = new TelaDetalheQuestao();
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == cadastrar) {
+            cadastro(e);
+
+        }
     }
 }

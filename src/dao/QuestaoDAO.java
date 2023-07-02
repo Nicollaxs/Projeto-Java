@@ -1,3 +1,4 @@
+
 package dao;
 
 import java.sql.Connection;
@@ -5,14 +6,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import modelo.Edital;
 import modelo.Exatas;
 import modelo.Questao;
 
+/**
+ * Classe responsavel por realizar operacoes de acesso ao banco de dados
+ * relacionadas a entidade Questao, especialmente voltada para questoes da area
+ * de Exatas.
+ * 
+ * 
+ * @see modelo.Questao
+ * @see modelo.Exatas
+ * @see modelo.Edital
+ * @author Samuel
+ */
 public class QuestaoDAO {
     private Connection connection;
 
+    /**
+     * Cadastra uma nova questao da area de Exatas no banco de dados.
+     * 
+     * @param questao A questao a ser cadastrada.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
     public void CadastrarQuestao(Questao questao) throws ExceptionDAO {
         String sql = "INSERT INTO questao ( tipo, materia, enunciado, resposta) VALUES (?, ?, ?, ?)";
 
@@ -31,6 +47,14 @@ public class QuestaoDAO {
         }
     }
 
+    /**
+     * Lista todas as questoes da area de Exatas que possuam a materia (total ou
+     * parcial) informada.
+     * 
+     * @param materia A materia das questoes a serem buscadas.
+     * @return Uma lista contendo as questoes encontradas.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
     public ArrayList<Questao> listarQuestao(String materia) throws ExceptionDAO {
         String sql = "SELECT * FROM questao WHERE materia LIKE ? ORDER BY materia";
 
@@ -62,6 +86,13 @@ public class QuestaoDAO {
         }
     }
 
+    /**
+     * Altera os dados de uma questao da area de Exatas no banco de dados.
+     * 
+     * @param exatas A questao da area de Exatas com os novos dados a serem
+     *               atualizados.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
     public void mudarQuestao(Exatas exatas) throws ExceptionDAO {
         String sql = "Update Questao set tipo = ?, materia = ?, enunciado = ?, resposta = ? where codQuestao= ?";
         PreparedStatement pStatement = null;
@@ -105,6 +136,13 @@ public class QuestaoDAO {
 
     }
 
+    /**
+     * Deleta uma questao da área de Exatas do banco de dados com base no seu codigo
+     * de identificacao.
+     * 
+     * @param questao A questao a ser deletada.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
     public void deletarQuestao(Exatas questao) throws ExceptionDAO {
         String sql = "Delete from questao where codQuestao = ?";
         PreparedStatement pStatement = null;

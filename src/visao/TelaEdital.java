@@ -12,6 +12,57 @@ import javax.swing.table.DefaultTableModel;
 import controle.ControleEditais;
 import modelo.Edital;
 
+/**
+ * Classe que representa a tela de consulta de editais de concursos.
+ * 
+ * <p>
+ * Essa classe extende a classe JFrame e implementa a interface ActionListener,
+ * sendo responsavel por exibir e manipular os dados dos editais no sistema.
+ * 
+ * <p>
+ * Os dados dos editais sao exibidos em uma tabela que pode ser filtrada por
+ * nome.
+ * Ao selecionar um edital na tabela, e possivel visualizar detalhes do edital
+ * em uma
+ * tela de detalhe.
+ * 
+ * <p>
+ * Ao clicar no botao "cadastrar", e aberta uma tela para cadastrar um novo
+ * edital.
+ * 
+ * <p>
+ * Ao clicar no botao "buscar", sao filtrados os editais pelo nome informado na
+ * caixa
+ * de busca e exibidos na tabela.
+ * 
+ * <p>
+ * Os dados dos editais sao obtidos a partir do controle de editais
+ * (ControleEditais).
+ * 
+ * <p>
+ * Essa classe tambem implementa um metodo main para executar a tela.
+ * 
+ * @see JFrame
+ * @see ActionListener
+ * @see ControleEditais
+ * @see TelaDetalheEdital
+ * @see Edital
+ * @see DefaultTableModel
+ * @see JTable
+ * @see JScrollPane
+ * @see ArrayList
+ * @see Logger
+ * @see Level
+ * @see Color
+ * @see GridLayout
+ * @see JButton
+ * @see JTextField
+ * @see JPanel
+ * 
+ * @version 1.0
+ * 
+ * @author Samuel
+ */
 public class TelaEdital extends JFrame implements ActionListener {
 
     private JButton buscar = new JButton("buscar");
@@ -28,18 +79,26 @@ public class TelaEdital extends JFrame implements ActionListener {
         }
     };
 
+    /**
+     * Construtor da classe TelaEdital.
+     * 
+     * <p>
+     * Cria uma nova instancia da tela de consulta de editais, configurando seus
+     * componentes,
+     * definindo seu tamanho, layout e visibilidade.
+     */
     public TelaEdital() {
 
         setTitle("Consulta de Concurso");
         setBounds(320, 120, 960, 640);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setBackground(new Color(30, 30, 30));
+        getContentPane().setBackground(new Color(0, 0, 30));
         setLayout(null);
 
         caixaBuscar.setBounds(230, 40, 380, 30);
         add(caixaBuscar);
 
-        cadastrar.setBounds(760, 40, 150, 32);
+        cadastrar.setBounds(800, 40, 150, 32);
         cadastrar.addActionListener(this::cadastro);
         add(cadastrar);
 
@@ -72,6 +131,17 @@ public class TelaEdital extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Metodo para buscar os editais pelo nome informado na caixa de busca e
+     * exibi-los na tabela.
+     * 
+     * <p>
+     * Os editais sao filtrados pelo nome e obtidos a partir do controle de editais
+     * (ControleEditais).
+     * Em seguida, sao adicionados ao modelo da tabela para exibicao.
+     * 
+     * @param evt O evento de clique no botao "buscar".
+     */
     public void buscar(ActionEvent evt) {
         String nome = caixaBuscar.getText();
         DefaultTableModel tableModel = (DefaultTableModel) tabela.getModel();
@@ -97,20 +167,16 @@ public class TelaEdital extends JFrame implements ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if (src == cadastrar) {
-            cadastro(e);
-        }
-
-    }
-
-    public static void main(String[] args) {
-        TelaEdital tela = new TelaEdital();
-
-    }
-
+    /**
+     * Metodo que trata o evento de clique duplo na tabela.
+     * 
+     * <p>
+     * Quando ocorre um clique duplo em uma linha da tabela, e aberta a tela de
+     * detalhe
+     * do edital selecionado, onde sao exibidos mais detalhes sobre o edital.
+     * 
+     * @param evt O evento de clique duplo na tabela.
+     */
     private void tableModelMouseclicked(java.awt.event.MouseEvent evt) {
         if (evt.getClickCount() == 2) {
             TelaDetalheEdital telaDetalheEdital = new TelaDetalheEdital();
@@ -130,9 +196,28 @@ public class TelaEdital extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Metodo para abrir a tela de cadastro de um novo edital.
+     * 
+     * <p>
+     * Esse metodo e chamado ao clicar no botao "cadastrar" e abre a tela onde e
+     * possivel
+     * cadastrar um novo edital no sistema.
+     * 
+     * @param evt O evento de clique no botao "cadastrar".
+     */
     public void cadastro(ActionEvent evt) {
 
         TelaDetalheEdital telaDetalheEdital = new TelaDetalheEdital();
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == cadastrar) {
+            cadastro(e);
+        }
 
     }
 

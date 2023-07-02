@@ -6,8 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Classe que representa a tela de detalhe de um edital.
  * 
+ * <p>
+ * Essa classe extende a classe JFrame e implementa a interface ActionListener,
+ * sendo responsavel por exibir e manipular os detalhes de um edital no sistema.
  * 
+ * @author Pc
+ * @version a
  */
 public class TelaDetalheEdital extends JFrame implements ActionListener {
     JLabel nomeJLabel = new JLabel("Nome :");
@@ -31,14 +37,21 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
     private Integer codEdital = 0;
     private TelaEdital telaEdital;
-    // String nome = null;
 
+    /**
+     * Construtor da classe TelaDetalheEdital.
+     * 
+     * <p>
+     * Cria uma nova instancia da tela de detalhe de edital, configurando seus
+     * componentes,
+     * definindo seu tamanho, layout e visibilidade.
+     */
     public TelaDetalheEdital() {
-        // setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         setSize(500, 450);
         setLayout(null);
         setLocationRelativeTo(null);
-
+        setTitle("Cadastro de Questa");
         caixaNome.setBounds(120, 50, 100, 30);
         add(caixaNome);
         nomeJLabel.setBounds(20, 50, 100, 30);
@@ -51,12 +64,14 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
         dataCorreta.setBounds(300, 90, 100, 30);
         add(dataCorreta);
+
+        dataCorreta2.setBounds(300, 130, 100, 30);
+        add(dataCorreta2);
+
         caixadataTermino.setBounds(120, 130, 100, 30);
         add(caixadataTermino);
         dataTerminoJLabel.setBounds(20, 130, 100, 30);
         add(dataTerminoJLabel);
-        dataCorreta2.setBounds(300, 130, 100, 30);
-        add(dataCorreta2);
 
         caixalocal.setBounds(120, 170, 100, 30);
         add(caixalocal);
@@ -86,6 +101,9 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Metodo para limpar os campos da tela de detalhe de edital.
+     */
     private void limparTela() {
         caixaNome.setText("");
         caixadataInicio.setText("");
@@ -96,15 +114,16 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
     }
 
     /**
-     * Este metodo serve para procurar os editais no banca de dados
+     * Metodo para buscar os detalhes de um edital no banco de dados e exibi-los na
+     * tela.
      * 
-     * @param codEdital   E o um codigo gerado pela tabela do banco de dados
-     * @param nome        Nome do edital
-     * @param dataInicio  Data de apertuda do concurso
-     * @param dataTermino Data que fecha o concurso
-     * @param local       Local onde sera este concurso
-     * @param salario     Quanto um aprovado vai ganhar
-     * @param qtdvagas    Quantidade de vagas disponiveis para o concurso
+     * @param codEdital   O codigo do edital a ser buscado.
+     * @param nome        O nome do edital.
+     * @param dataInicio  A data de abertura do concurso.
+     * @param dataTermino A data de encerramento do concurso.
+     * @param local       O local onde sera realizado o concurso.
+     * @param salario     O valor do salario para os aprovados no concurso.
+     * @param qtdvagas    A quantidade de vagas disponiveis para o concurso.
      */
     public void BuscarEditais(int codEdital, String nome, String dataInicio, String dataTermino, String local,
             Float salario,
@@ -120,24 +139,10 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
     }
 
     /**
-     * @param args
+     * metodo para tratar o evento de clique no botao "Salvar".
+     * 
+     * @param evt O evento de clique no botao.
      */
-    public static void main(String[] args) {
-        new TelaDetalheEdital();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if (src == Salvar) {
-            salvarbutton(e);
-        }
-        if (src == Deletar) {
-            deletarbutton(e);
-        }
-
-    }
-
     public void salvarbutton(ActionEvent evt) {
 
         boolean sucesso;
@@ -172,6 +177,11 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Metodo para tratar o evento de clique no botao "Deletar".
+     * 
+     * @param evt O evento de clique no botao.
+     */
     public void deletarbutton(ActionEvent evt) {
 
         boolean sucesso;
@@ -190,8 +200,23 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Metodo para limpar os campos da tela apos um cadastro de edital.
+     */
     private void limparTelaCadastroEdital() {
         this.limparTela();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == Salvar) {
+            salvarbutton(e);
+        }
+        if (src == Deletar) {
+            deletarbutton(e);
+        }
+
     }
 
 }

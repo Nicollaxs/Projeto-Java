@@ -7,11 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Edital;
 
+/**
+ * Classe responsavel por realizar operacoes de acesso ao banco de dados
+ * relacionadas a entidade Edital.
+ * 
+ * @see modelo.Edital
+ * @author Samuel
+ */
 public class EditalDAO {
     private Connection connection;
 
-    // String nome, String dataInicio, String dataTermino, String local, String
-    // salario, String qtdVagas
+    /**
+     * Cadastra um novo Edital no banco de dados.
+     * 
+     * @param edital O objeto Edital a ser cadastrado.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
     public void CadastrarEdital(Edital edital) throws ExceptionDAO {
         String sql = "INSERT INTO edital (nome, dataInicio, dataTermino, local, salario, qtdVagas) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -31,6 +42,13 @@ public class EditalDAO {
         }
     }
 
+    /**
+     * Lista todos os Editais que possuam o nome (total ou parcial) informado.
+     * 
+     * @param nome O nome do Edital a ser buscado.
+     * @return Uma lista contendo os Editais encontrados.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
     public ArrayList<Edital> listarEditais(String nome) throws ExceptionDAO {
         String sql = "SELECT * FROM edital WHERE nome LIKE ? ORDER BY nome";
 
@@ -61,6 +79,12 @@ public class EditalDAO {
         }
     }
 
+    /**
+     * Altera os dados de um Edital no banco de dados.
+     * 
+     * @param edital O objeto Edital com os novos dados a serem atualizados.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
     public void mudarEdital(Edital edital) throws ExceptionDAO {
         String sql = "Update Edital set nome = ?, dataInicio = ?, dataTermino = ?, local = ?, salario = ?, qtdVagas = ? where codEdital= ?";
         PreparedStatement pStatement = null;
@@ -105,6 +129,13 @@ public class EditalDAO {
         }
 
     }
+
+    /**
+     * Deleta um Edital do banco de dados com base no seu codigo de identificacao.
+     * 
+     * @param edital O objeto Edital a ser deletado.
+     * @throws ExceptionDAO Se ocorrer algum erro durante a execucao da operacao.
+     */
 
     public void deletarEdital(Edital edital) throws ExceptionDAO {
         String sql = "Delete from Edital where codEdital = ?";

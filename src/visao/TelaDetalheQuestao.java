@@ -7,25 +7,47 @@ import javax.swing.*;
 
 import controle.ControleQuestao;
 
+/**
+ * Classe que representa a tela de detalhe de uma questao.
+ * 
+ * <p>
+ * Essa classe extende a classe JFrame e implementa a interface ActionListener,
+ * sendo responsável por exibir e manipular os detalhes de uma questao no
+ * sistema.
+ * 
+ * @author Pc
+ * @version a
+ */
 public class TelaDetalheQuestao extends JFrame implements ActionListener {
-
     JLabel tipo, enunciado, resposta, materia;
+    JLabel exatas;
+    JLabel humanas;
     JButton salvarQ;
     JButton deletarQ;
     private JTextArea caixaEnunciado;
     private JTextArea caixaResposta;
     private JTextField caixaMateria;
     private JTextField caixatipo;
-
-    // private JComboBox<String> exatasButton;
     private Integer codQuestao = 0;
 
+    /**
+     * Construtor da classe TelaDetalheQuestao.
+     * 
+     * <p>
+     * Cria uma nova instancia da tela de detalhe de questao, configurando seus
+     * componentes,
+     * definindo seu tamanho, layout e visibilidade.
+     */
     public TelaDetalheQuestao() {
         // botoes
         salvarQ = new JButton("Salvar");
         deletarQ = new JButton("Deletar");
 
         //
+
+        exatas = new JLabel("(Exatas ou");
+        humanas = new JLabel("Humanas)");
+
         tipo = new JLabel("Tipo : ");
         materia = new JLabel("Materia : ");
         enunciado = new JLabel("Enunciado : ");
@@ -41,8 +63,13 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
         salvarQ.addActionListener(this);
         deletarQ.addActionListener(this);
 
-        setLayout(null);
+        exatas.setBounds(250, 30, 100, 30);
+        add(exatas);
+        humanas.setBounds(315, 30, 100, 30);
+        add(humanas);
 
+        setLayout(null);
+        setTitle("Cadastro de Questao");
         add(salvarQ);
         add(deletarQ);
 
@@ -50,15 +77,6 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
         add(enunciado);
         add(resposta);
         add(materia);
-
-        String[] resposta = { "Exatas", "Humanas" };
-        /*
-         * exatasButton = new JComboBox<>(resposta);
-         * exatasButton.setBounds(120, 30, 100, 20);
-         * getContentPane().add(exatasButton);
-         * add(exatasButton);
-         * salvarQ.addActionListener(this);
-         */
 
         // tipo
         caixatipo = new JTextField(20);
@@ -91,19 +109,31 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
         caixaResposta.setLineWrap(true);
         caixaResposta.setWrapStyleWord(true);
 
-        // salvarQ.addActionListener(this);
-
         setSize(600, 550);
         setVisible(true);
 
     }
 
+    /**
+     * Metodo para limpar os campos da tela de detalhe de questao.
+     */
     private void limparTela() {
         caixatipo.setText("");
         caixaMateria.setText("");
         caixaEnunciado.setText("");
         caixaResposta.setText("");
     }
+
+    /**
+     * Metodo para buscar os detalhes de uma questao no banco de dados e exibi-los
+     * na tela.
+     * 
+     * @param codQuestao O codigo da questao a ser buscada.
+     * @param tipo       O tipo da questao (Exatas ou Humanas).
+     * @param materia    A materia da questao.
+     * @param enunciado  O enunciado da questao.
+     * @param resposta   A resposta da questao.
+     */
 
     public void BuscarQuestao(int codQuestao, String tipo, String materia, String enunciado, String resposta) {
         this.codQuestao = codQuestao;
@@ -114,26 +144,12 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
 
     }
 
-    public static void main(String[] args) {
-        new TelaDetalheQuestao();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object src = e.getSource();
-        if (src == salvarQ) {
-            cadastrarbutton(e);
-
-        }
-        if (src == deletarQ) {
-            deletarbutton(e);
-
-        }
-
-    }
-
+    /**
+     * Metodo para tratar o evento de clique no botao "Salvar".
+     * 
+     * @param evt O evento de clique no botao.
+     */
     public void cadastrarbutton(ActionEvent evt) {
-        // String tipo = exatasButton.getSelectedItem().toString();
 
         boolean sucesso;
         try {
@@ -143,12 +159,14 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
                 if (caixatipo.getText().equals("Exatas")) {
                     sucesso = controleQuestao.cadQuestaoExatas(caixatipo.getText(), caixaMateria.getText(),
                             caixaEnunciado.getText(), caixaResposta.getText());
-                    JOptionPane.showMessageDialog(null, "Foi cadastrado uma questao de exatas !");
+                    // JOptionPane.showMessageDialog(null, "Foi cadastrado uma questao de exatas
+                    // !");
 
                 } else {
                     sucesso = controleQuestao.cadQuestaoHumanas(caixatipo.getText(), caixaMateria.getText(),
                             caixaEnunciado.getText(), caixaResposta.getText());
-                    JOptionPane.showMessageDialog(null, "Foi cadastrado uma questao de humanas !");
+                    // JOptionPane.showMessageDialog(null, "Foi cadastrado uma questao de humanas
+                    // !");
                 }
             } else {
                 sucesso = controleQuestao.mudarQuestao(this.codQuestao, caixatipo.getText(), caixaMateria.getText(),
@@ -163,6 +181,12 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
         }
 
     }
+
+    /**
+     * metodo para tratar o evento de clique no botao "Deletar".
+     * 
+     * @param evt O evento de clique no botao.
+     */
 
     public void deletarbutton(ActionEvent evt) {
 
@@ -183,7 +207,24 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Metodo para limpar os campos da tela apos um cadastro de questao.
+     */
     private void limparTelaCadastroQuestao() {
         this.limparTela();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object src = e.getSource();
+        if (src == salvarQ) {
+            cadastrarbutton(e);
+
+        }
+        if (src == deletarQ) {
+            deletarbutton(e);
+
+        }
+
     }
 }
