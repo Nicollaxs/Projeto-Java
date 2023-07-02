@@ -98,6 +98,22 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
 
     }
 
+    private void limparTela() {
+        caixatipo.setText("");
+        caixaMateria.setText("");
+        caixaEnunciado.setText("");
+        caixaResposta.setText("");
+    }
+
+    public void BuscarQuestao(int codQuestao, String tipo, String materia, String enunciado, String resposta) {
+        this.codQuestao = codQuestao;
+        this.caixatipo.setText(tipo);
+        this.caixaMateria.setText(materia);
+        this.caixaEnunciado.setText(enunciado);
+        this.caixaResposta.setText(resposta);
+
+    }
+
     public static void main(String[] args) {
         new TelaDetalheQuestao();
     }
@@ -113,15 +129,6 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
             deletarbutton(e);
 
         }
-
-    }
-
-    public void BuscarQuestao(int codQuestao, String tipo, String materia, String enunciado, String resposta) {
-        this.codQuestao = codQuestao;
-        this.caixatipo.setText(tipo);
-        this.caixaMateria.setText(materia);
-        this.caixaEnunciado.setText(enunciado);
-        this.caixaResposta.setText(resposta);
 
     }
 
@@ -179,12 +186,4 @@ public class TelaDetalheQuestao extends JFrame implements ActionListener {
     private void limparTelaCadastroQuestao() {
         this.limparTela();
     }
-
-    private void limparTela() {
-        caixatipo.setText("");
-        caixaMateria.setText("");
-        caixaEnunciado.setText("");
-        caixaResposta.setText("");
-    }
-
 }

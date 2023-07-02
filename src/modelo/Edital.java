@@ -10,24 +10,22 @@ public class Edital {
 	String dataInicio;
 	String dataTermino;
 	String localidade;
-	String salario;
-	String qtdVagas;
-
+	Float salario;
+	int qtdVagas;
 	int codEdital;
 
 	public Edital() {
 
 	}
 
-	public Edital(String nome, String dataInicio, String dataTermino, String local, String salario, String qtdVagas) {
+	public Edital(String nome, String dataInicio, String dataTermino, String localidade, Float salario, int qtdVagas) {
 		this.nome = nome;
 		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
-		this.localidade = local;
+		this.localidade = localidade;
 		this.salario = salario;
 		this.qtdVagas = qtdVagas;
 	}
-
 
 	public String getNome() {
 		return nome;
@@ -61,23 +59,21 @@ public class Edital {
 		this.localidade = localidade;
 	}
 
-	public String getSalario() {
+	public Float getSalario() {
 		return salario;
 	}
 
-	public void setSalario(String salario) {
+	public void setSalario(Float salario) {
 		this.salario = salario;
 	}
 
-	public String getQtdVagas() {
+	public int getQtdVagas() {
 		return qtdVagas;
 	}
 
-	public void setQtdVagas(String qtdVagas) {
+	public void setQtdVagas(int qtdVagas) {
 		this.qtdVagas = qtdVagas;
-
 	}
-
 
 	public int getCodEdital() {
 		return codEdital;
@@ -86,7 +82,8 @@ public class Edital {
 	public void setCodEdital(int codEdital) {
 		this.codEdital = codEdital;
 	}
-		public ArrayList<Edital> listarEditais(String nome) throws ExceptionDAO {
+
+	public ArrayList<Edital> listarEditais(String nome) throws ExceptionDAO {
 		return new EditalDAO().listarEditais(nome);
 
 	}
@@ -99,7 +96,7 @@ public class Edital {
 		new EditalDAO().deletarEdital(edital);
 	}
 
-		public void CadastrarEdital(Edital edital) throws ExceptionDAO {
+	public void CadastrarEdital(Edital edital) throws ExceptionDAO {
 		new EditalDAO().CadastrarEdital(edital);
 	}
 

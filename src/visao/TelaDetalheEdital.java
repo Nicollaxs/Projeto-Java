@@ -4,12 +4,16 @@ import javax.swing.*;
 import controle.ControleEditais;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
+/**
+ * 
+ * 
+ */
 public class TelaDetalheEdital extends JFrame implements ActionListener {
     JLabel nomeJLabel = new JLabel("Nome :");
     JLabel dataInicioJLabel = new JLabel("Data Inicio :");
+    JLabel dataCorreta = new JLabel("(Ano-mes-dia)");
+    JLabel dataCorreta2 = new JLabel("(Ano-mes-dia)");
     JLabel dataTerminoJLabel = new JLabel("Data Termino :");
     JLabel locaJLabel = new JLabel("Local :");
     JLabel salarioJLabel = new JLabel("Salario :");
@@ -24,13 +28,13 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
 
     JButton Salvar = new JButton("Salvar");
     JButton Deletar = new JButton("Deletar");
-    JButton voltar = new JButton("voltar");
+
     private Integer codEdital = 0;
     private TelaEdital telaEdital;
     // String nome = null;
 
     public TelaDetalheEdital() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        // setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(500, 450);
         setLayout(null);
         setLocationRelativeTo(null);
@@ -45,10 +49,14 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         dataInicioJLabel.setBounds(20, 90, 100, 30);
         add(dataInicioJLabel);
 
+        dataCorreta.setBounds(300, 90, 100, 30);
+        add(dataCorreta);
         caixadataTermino.setBounds(120, 130, 100, 30);
         add(caixadataTermino);
         dataTerminoJLabel.setBounds(20, 130, 100, 30);
         add(dataTerminoJLabel);
+        dataCorreta2.setBounds(300, 130, 100, 30);
+        add(dataCorreta2);
 
         caixalocal.setBounds(120, 170, 100, 30);
         add(caixalocal);
@@ -74,10 +82,6 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         Deletar.addActionListener(this);
         add(Deletar);
 
-        voltar.setBounds(100, 20, 100, 30);
-        voltar.addActionListener(this);
-        add(voltar);
-
         setVisible(true);
 
     }
@@ -91,19 +95,33 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         caixasalario.setText("0");
     }
 
+    /**
+     * Este metodo serve para procurar os editais no banca de dados
+     * 
+     * @param codEdital   E o um codigo gerado pela tabela do banco de dados
+     * @param nome        Nome do edital
+     * @param dataInicio  Data de apertuda do concurso
+     * @param dataTermino Data que fecha o concurso
+     * @param local       Local onde sera este concurso
+     * @param salario     Quanto um aprovado vai ganhar
+     * @param qtdvagas    Quantidade de vagas disponiveis para o concurso
+     */
     public void BuscarEditais(int codEdital, String nome, String dataInicio, String dataTermino, String local,
-            String salario,
-            String qtdvagas) {
+            Float salario,
+            int qtdvagas) {
         this.codEdital = codEdital;
         this.caixaNome.setText(nome);
         this.caixadataInicio.setText(dataInicio);
         this.caixadataTermino.setText(dataTermino);
         this.caixalocal.setText(local);
-        this.caixasalario.setText(salario);
-        this.caixaqtdVagas.setText(qtdvagas);
+        this.caixasalario.setText(Float.toString(salario));
+        this.caixaqtdVagas.setText(Integer.toString(qtdvagas));
 
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         new TelaDetalheEdital();
     }
@@ -126,14 +144,21 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
         try {
             ControleEditais controleEditais = new ControleEditais();
 
+            String nome = caixaNome.getText();
+            String dataInicioS = caixadataInicio.getText();
+            String dataTerminoS = caixadataTermino.getText();
+            String local = caixalocal.getText();
+            float salario = Float.parseFloat(caixasalario.getText());
+            int qtdVagas = Integer.parseInt(caixaqtdVagas.getText());
+
             if (this.codEdital == 0) {
-                sucesso = controleEditais.cadEdital(caixaNome.getText(), caixadataInicio.getText(),
-                        caixadataTermino.getText(), caixalocal.getText(), caixasalario.getText(),
-                        caixaqtdVagas.getText());
+                sucesso = controleEditais.cadEdital(nome, dataInicioS,
+                        dataTerminoS, local, salario,
+                        qtdVagas);
             } else {
-                sucesso = controleEditais.mudarEdital(this.codEdital, caixaNome.getText(), caixadataInicio.getText(),
-                        caixadataTermino.getText(), caixalocal.getText(), caixasalario.getText(),
-                        caixaqtdVagas.getText());
+                sucesso = controleEditais.mudarEdital(this.codEdital, nome, dataInicioS,
+                        dataTerminoS, local, salario,
+                        qtdVagas);
             }
 
             if (sucesso) {
@@ -143,7 +168,7 @@ public class TelaDetalheEdital extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro: " + e);
+            JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente");
         }
     }
 

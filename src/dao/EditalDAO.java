@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modelo.Edital;
 
-
 public class EditalDAO {
     private Connection connection;
+
     // String nome, String dataInicio, String dataTermino, String local, String
     // salario, String qtdVagas
     public void CadastrarEdital(Edital edital) throws ExceptionDAO {
@@ -22,8 +22,8 @@ public class EditalDAO {
             pStatement.setString(2, edital.getDataInicio());
             pStatement.setString(3, edital.getDataTermino());
             pStatement.setString(4, edital.getLocalidade());
-            pStatement.setString(5, edital.getSalario());
-            pStatement.setString(6, edital.getQtdVagas());
+            pStatement.setFloat(5, edital.getSalario());
+            pStatement.setInt(6, edital.getQtdVagas());
             pStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -49,8 +49,8 @@ public class EditalDAO {
                 edital.setDataInicio(rs.getString("dataInicio"));
                 edital.setDataTermino(rs.getString("dataTermino"));
                 edital.setLocalidade(rs.getString("local"));
-                edital.setSalario(rs.getString("salario"));
-                edital.setQtdVagas(rs.getString("qtdVagas"));
+                edital.setSalario(rs.getFloat("salario"));
+                edital.setQtdVagas(rs.getInt("qtdVagas"));
                 editais.add(edital);
             }
 
@@ -70,14 +70,13 @@ public class EditalDAO {
 
             connection = new ConnectionMVC().getConnection();
             pStatement = connection.prepareStatement(sql);
-            
-            
+
             pStatement.setString(1, edital.getNome());
             pStatement.setString(2, edital.getDataInicio());
             pStatement.setString(3, edital.getDataTermino());
             pStatement.setString(4, edital.getLocalidade());
-            pStatement.setString(5, edital.getSalario());
-            pStatement.setString(6, edital.getQtdVagas());
+            pStatement.setFloat(5, edital.getSalario());
+            pStatement.setInt(6, edital.getQtdVagas());
             pStatement.setInt(7, edital.getCodEdital());
 
             pStatement.execute();
@@ -106,7 +105,6 @@ public class EditalDAO {
         }
 
     }
-    
 
     public void deletarEdital(Edital edital) throws ExceptionDAO {
         String sql = "Delete from Edital where codEdital = ?";
@@ -144,6 +142,5 @@ public class EditalDAO {
         }
 
     }
-
 
 }

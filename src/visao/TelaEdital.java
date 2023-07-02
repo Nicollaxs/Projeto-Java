@@ -15,7 +15,6 @@ import modelo.Edital;
 public class TelaEdital extends JFrame implements ActionListener {
 
     private JButton buscar = new JButton("buscar");
-    private JButton voltar = new JButton("voltar");
 
     private JButton cadastrar = new JButton("cadastrar");
     private JTextField caixaBuscar = new JTextField();
@@ -121,8 +120,8 @@ public class TelaEdital extends JFrame implements ActionListener {
             String dataInicio = (String) tableModel.getValueAt(selectedRow, 2);
             String dataTermino = (String) tableModel.getValueAt(selectedRow, 3);
             String local = (String) tableModel.getValueAt(selectedRow, 4);
-            String salario = (String) tableModel.getValueAt(selectedRow, 5);
-            String qtdVagas = (String) tableModel.getValueAt(selectedRow, 6);
+            Float salario = (Float) tableModel.getValueAt(selectedRow, 5);
+            int qtdVagas = (Integer) tableModel.getValueAt(selectedRow, 6);
 
             telaDetalheEdital.BuscarEditais(codEdital, nome, dataInicio, dataTermino, local, salario, qtdVagas);
 
@@ -135,10 +134,6 @@ public class TelaEdital extends JFrame implements ActionListener {
 
         TelaDetalheEdital telaDetalheEdital = new TelaDetalheEdital();
 
-    }
-
-    public void voltarParaTelaEdital() {
-        TelaEdital telaEdital = new TelaEdital();
     }
 
 }
